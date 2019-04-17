@@ -14,6 +14,8 @@
 		8466D08D2266FCAD00371BD3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8466D08B2266FCAD00371BD3 /* LaunchScreen.storyboard */; };
 		8466D0982266FCAD00371BD3 /* CustomAlertTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8466D0972266FCAD00371BD3 /* CustomAlertTests.swift */; };
 		8466D0A32266FCAD00371BD3 /* CustomAlertUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8466D0A22266FCAD00371BD3 /* CustomAlertUITests.swift */; };
+		8466D0B12267009D00371BD3 /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8466D0B02267009D00371BD3 /* AlertView.swift */; };
+		84C7B7D2226714C3007F7401 /* AlertButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C7B7D1226714C3007F7401 /* AlertButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,8 @@
 		8466D09E2266FCAD00371BD3 /* CustomAlertUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CustomAlertUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8466D0A22266FCAD00371BD3 /* CustomAlertUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertUITests.swift; sourceTree = "<group>"; };
 		8466D0A42266FCAD00371BD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8466D0B02267009D00371BD3 /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
+		84C7B7D1226714C3007F7401 /* AlertButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,9 +101,10 @@
 		8466D0812266FCAC00371BD3 /* CustomAlert */ = {
 			isa = PBXGroup;
 			children = (
+				84C7B7D3226714D6007F7401 /* ViewControllers */,
+				84C7B7D4226714EA007F7401 /* Views */,
+				84C7B7D522671502007F7401 /* UI */,
 				8466D0822266FCAC00371BD3 /* AppDelegate.swift */,
-				8466D0842266FCAC00371BD3 /* ViewController.swift */,
-				8466D0862266FCAC00371BD3 /* Main.storyboard */,
 				8466D0892266FCAD00371BD3 /* Assets.xcassets */,
 				8466D08B2266FCAD00371BD3 /* LaunchScreen.storyboard */,
 				8466D08E2266FCAD00371BD3 /* Info.plist */,
@@ -123,6 +128,31 @@
 				8466D0A42266FCAD00371BD3 /* Info.plist */,
 			);
 			path = CustomAlertUITests;
+			sourceTree = "<group>";
+		};
+		84C7B7D3226714D6007F7401 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				8466D0842266FCAC00371BD3 /* ViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		84C7B7D4226714EA007F7401 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8466D0B02267009D00371BD3 /* AlertView.swift */,
+				84C7B7D1226714C3007F7401 /* AlertButton.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		84C7B7D522671502007F7401 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				8466D0862266FCAC00371BD3 /* Main.storyboard */,
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -256,8 +286,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84C7B7D2226714C3007F7401 /* AlertButton.swift in Sources */,
 				8466D0852266FCAC00371BD3 /* ViewController.swift in Sources */,
 				8466D0832266FCAC00371BD3 /* AppDelegate.swift in Sources */,
+				8466D0B12267009D00371BD3 /* AlertView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -442,7 +474,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = admin.CustomAlert;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -460,7 +492,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = admin.CustomAlert;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
