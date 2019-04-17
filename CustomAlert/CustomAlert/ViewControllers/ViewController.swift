@@ -45,6 +45,7 @@ class ViewController: UIViewController {
         self.setupVisualEffectView()
     }
     
+
     // MARK: - manage VisualEffectView
     func setupVisualEffectView() {
         view.addSubview(visualEffect)
