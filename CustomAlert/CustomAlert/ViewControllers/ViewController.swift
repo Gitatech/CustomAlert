@@ -9,12 +9,8 @@
 import UIKit
 
 class ViewController: UIViewController {
-    private let buttonSize = 52.0 as CGFloat
-    private lazy var alertView: AlertView = {
-        let alert = AlertView(title: "", body: "", leftBodyTitle: "", rightBodyTitle: "")
-        alert.delegate = self
-        return alert
-    }()
+    private let buttonSize: CGFloat = 52.0
+    private var alertView: AlertView!
     
     private let visualEffect: UIVisualEffectView = {
         let blurEffect = UIBlurEffect(style: .dark)
@@ -44,15 +40,16 @@ class ViewController: UIViewController {
         self.setupAddButton()
         self.setupVisualEffectView()
     }
-    
 
     // MARK: - manage VisualEffectView
     func setupVisualEffectView() {
         view.addSubview(visualEffect)
-        visualEffect.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        visualEffect.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        visualEffect.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        visualEffect.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            visualEffect.topAnchor.constraint(equalTo: view.topAnchor),
+            visualEffect.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            visualEffect.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            visualEffect.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            ])
         visualEffect.alpha = 0
     }
     
@@ -81,10 +78,12 @@ class ViewController: UIViewController {
     func setupBackground() {
         self.view.addSubview(backgroundView)
         backgroundView.contentMode = .scaleToFill
-        backgroundView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
-        backgroundView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-        backgroundView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
-        backgroundView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant:47).isActive = true
+        NSLayoutConstraint.activate([
+            backgroundView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            backgroundView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant:47)
+            ])
     }
     
     // MARK: - manage CustomAlert
@@ -96,18 +95,23 @@ class ViewController: UIViewController {
     
     func setupAddButton() {
         self.view.addSubview(addButton)
-        addButton.widthAnchor.constraint(equalToConstant: buttonSize).isActive = true
-        addButton.heightAnchor.constraint(equalToConstant: buttonSize).isActive = true
-        addButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -30).isActive = true
-        addButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -17).isActive = true
+        NSLayoutConstraint.activate([
+            addButton.widthAnchor.constraint(equalToConstant: buttonSize),
+            addButton.heightAnchor.constraint(equalToConstant: buttonSize),
+            self.view.bottomAnchor.constraint(equalTo: addButton.bottomAnchor, constant: 30),
+            self.view.trailingAnchor.constraint(equalTo: addButton.trailingAnchor, constant: 17)
+            ])
         addButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
     }
     
     func callAlert(title: String, body: String, leftButton: String, rightButton: String) {
         alertView = AlertView(title: title, body: body, leftBodyTitle: leftButton, rightBodyTitle: rightButton)
+        alertView.delegate = self
         view.addSubview(alertView)
-        alertView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 0).isActive = true
-        alertView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: 100).isActive = true
+        NSLayoutConstraint.activate([
+            alertView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 0),
+            alertView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: 100)
+            ])
     }
 }
 

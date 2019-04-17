@@ -8,7 +8,6 @@
 
 import UIKit
 
-@IBDesignable // share element with Intarface Builder
 class AlertButton: UIButton {
     override func layoutSubviews() {
         super.layoutSubviews()

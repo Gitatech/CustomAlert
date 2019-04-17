@@ -8,19 +8,19 @@
 
 import UIKit
 
-protocol AlertDelegate {
+protocol AlertDelegate: class {
     func leftButtonTapped()
     func rightButtonTapped()
 }
 
 class AlertView: UIView {
-    private let alertWidth = 308 as CGFloat
-    private let alertHeigth = 213 as CGFloat
-    private let titleFontSize = 26 as CGFloat
-    private let bodyFontSize = 14 as CGFloat
+    private let alertWidth: CGFloat = 308
+    private let alertHeigth: CGFloat = 213
+    private let titleFontSize:CGFloat = 26
+    private let bodyFontSize: CGFloat = 14
+    private let buttonHeight: CGFloat = 44
+    private let buttonWidth: CGFloat = 80
     private let fontType = "Arial"
-    private let buttonHeight = 44 as CGFloat
-    private let buttonWidth = 80 as CGFloat
     
     private var titleLabel: UILabel
     private var bodyLabel: UILabel
@@ -35,7 +35,7 @@ class AlertView: UIView {
     var leftButton: AlertButton
     var rightButton: AlertButton
     
-    var delegate: AlertDelegate?
+    weak var delegate: AlertDelegate?
     
     init(title: String, body: String, leftBodyTitle: String, rightBodyTitle: String) {
         self.titleLabel = UILabel()
@@ -65,6 +65,7 @@ class AlertView: UIView {
         bodyLabel.translatesAutoresizingMaskIntoConstraints = false
         leftButton.translatesAutoresizingMaskIntoConstraints = false
         rightButton.translatesAutoresizingMaskIntoConstraints = false
+        
         self.initAlertView()
     }
     
@@ -74,8 +75,10 @@ class AlertView: UIView {
     
     func initAlertView() {
         backgroundColor = .clear
-        widthAnchor.constraint(equalToConstant: alertWidth).isActive = true
-        heightAnchor.constraint(equalToConstant: alertHeigth).isActive = true
+        NSLayoutConstraint.activate([
+            widthAnchor.constraint(equalToConstant: alertWidth),
+            heightAnchor.constraint(equalToConstant: alertHeigth)
+            ])
         
         clipsToBounds = true
         setupImageBackground()
@@ -86,10 +89,12 @@ class AlertView: UIView {
     func setupImageBackground() {
         addSubview(imageView)
         imageView.contentMode = .scaleToFill
-        imageView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: self.topAnchor),
+            imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor)
+            ])
     }
     
     // MARK: - manage Labels
@@ -97,12 +102,13 @@ class AlertView: UIView {
         imageView.addSubview(titleLabel)
         imageView.addSubview(bodyLabel)
         
-        titleLabel.topAnchor.constraint(equalTo: imageView.topAnchor, constant: 25).isActive = true
-        titleLabel.leadingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: 32).isActive = true
-        
-        bodyLabel.topAnchor.constraint(equalTo: imageView.topAnchor, constant: 67).isActive = true
-        bodyLabel.leadingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: 32).isActive = true
-        bodyLabel.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -16).isActive = true
+        NSLayoutConstraint.activate([
+            titleLabel.topAnchor.constraint(equalTo: imageView.topAnchor, constant: 25),
+            titleLabel.leadingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: 32),
+            bodyLabel.topAnchor.constraint(equalTo: imageView.topAnchor, constant: 67),
+            bodyLabel.leadingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: 32),
+            imageView.trailingAnchor.constraint(equalTo: bodyLabel.trailingAnchor, constant: 16)
+            ])
     }
     
     // MARK: - manage Buttons
@@ -110,16 +116,16 @@ class AlertView: UIView {
         imageView.addSubview(rightButton)
         imageView.addSubview(leftButton)
         
-        rightButton.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true
-        rightButton.widthAnchor.constraint(equalToConstant: buttonWidth).isActive = true
-        rightButton.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -24).isActive = true
-        rightButton.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -24).isActive = true
-        
-        leftButton.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true
-        leftButton.widthAnchor.constraint(equalToConstant: buttonWidth).isActive = true
-        leftButton.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -24).isActive = true
-        leftButton.trailingAnchor.constraint(equalTo: rightButton.leadingAnchor, constant: -8).isActive = true
-        
+        NSLayoutConstraint.activate([
+            rightButton.heightAnchor.constraint(equalToConstant: buttonHeight),
+            rightButton.widthAnchor.constraint(equalToConstant: buttonWidth),
+            imageView.bottomAnchor.constraint(equalTo: rightButton.bottomAnchor, constant: 24),
+            imageView.trailingAnchor.constraint(equalTo: rightButton.trailingAnchor, constant: 24),
+            leftButton.heightAnchor.constraint(equalToConstant: buttonHeight),
+            leftButton.widthAnchor.constraint(equalToConstant: buttonWidth),
+            imageView.bottomAnchor.constraint(equalTo: leftButton.bottomAnchor, constant: 24),
+            rightButton.leadingAnchor.constraint(equalTo: leftButton.trailingAnchor, constant: 8)
+            ])
         leftButton.addTarget(self, action: #selector(leftButtonTapped), for: .touchUpInside)
         rightButton.addTarget(self, action: #selector(rightButtonPressed), for: .touchUpInside)
     }
