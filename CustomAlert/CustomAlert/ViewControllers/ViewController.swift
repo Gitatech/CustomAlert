@@ -10,7 +10,11 @@ import UIKit
 
 class ViewController: UIViewController {
     private let buttonSize = 52.0 as CGFloat
-    private var alertView: AlertView!
+    private lazy var alertView: AlertView = {
+        let alert = AlertView(title: "", body: "", leftBodyTitle: "", rightBodyTitle: "")
+        alert.delegate = self
+        return alert
+    }()
     
     private let addButton: UIButton = {
         let button = UIButton()
@@ -44,6 +48,11 @@ class ViewController: UIViewController {
     }
     
     // MARK: - manage custom alert
+    @objc func buttonPressed() {
+        print("Button was pressed")
+        self.callAlert(title: "Hello", body: "World!", leftButton: "Okey", rightButton: "No")
+    }
+    
     func setupAddButton() {
         self.view.addSubview(addButton)
         addButton.widthAnchor.constraint(equalToConstant: buttonSize).isActive = true
@@ -53,17 +62,20 @@ class ViewController: UIViewController {
         addButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
     }
     
-    @objc func buttonPressed() {
-        print("Button was pressed")
-        self.callAlert(title: "Hello", body: "World!")
-    }
-    
-    func callAlert(title: String, body: String) {
-        alertView = AlertView(title: title, body: body)
-        self.view.addSubview(alertView)
-        
+    func callAlert(title: String, body: String, leftButton: String, rightButton: String) {
+        alertView = AlertView(title: title, body: body, leftBodyTitle: leftButton, rightBodyTitle: rightButton)
+        view.addSubview(alertView)
         alertView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 0).isActive = true
         alertView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: 100).isActive = true
     }
 }
 
+extension ViewController: AlertDelegate {
+    func leftButtonTapped() {
+        self.alertView.removeFromSuperview()
+    }
+    
+    func rightButtonTapped() {
+        print("right button was tapped")
+    }
+}
