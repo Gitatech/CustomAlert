@@ -16,6 +16,13 @@ class ViewController: UIViewController {
         return alert
     }()
     
+    private let visualEffect: UIVisualEffectView = {
+        let blurEffect = UIBlurEffect(style: .dark)
+        let view = UIVisualEffectView(effect: blurEffect)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     private let addButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .clear
@@ -30,14 +37,46 @@ class ViewController: UIViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupBackground()
         self.setupAddButton()
+        self.setupVisualEffectView()
     }
     
-    // MARK: - setup background
+    // MARK: - setup VisualEffectView
+    func setupVisualEffectView() {
+        view.addSubview(visualEffect)
+        visualEffect.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        visualEffect.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        visualEffect.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        visualEffect.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        visualEffect.alpha = 0
+    }
+    
+    func animateIn() {
+        alertView.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
+        alertView.alpha = 0
+        
+        UIView.animate(withDuration: 0.4) {
+            self.visualEffect.alpha = 1
+            self.alertView.alpha = 1
+            self.alertView.transform = CGAffineTransform.identity
+        }
+    }
+    
+    func animateOut() {
+        UIView.animate(withDuration: 0.4, animations: {
+            self.visualEffect.alpha = 0
+            self.alertView.alpha = 0
+            self.alertView.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
+        }) { (_) in
+            self.alertView.removeFromSuperview()
+        }
+    }
+    
+    // MARK: - setup UIView's background
     func setupBackground() {
         self.view.addSubview(backgroundView)
         backgroundView.contentMode = .scaleToFill
@@ -51,6 +90,7 @@ class ViewController: UIViewController {
     @objc func buttonPressed() {
         print("Button was pressed")
         self.callAlert(title: "Hello", body: "World!", leftButton: "Okey", rightButton: "No")
+        animateIn()
     }
     
     func setupAddButton() {
@@ -72,10 +112,10 @@ class ViewController: UIViewController {
 
 extension ViewController: AlertDelegate {
     func leftButtonTapped() {
-        self.alertView.removeFromSuperview()
+        animateOut()
     }
     
     func rightButtonTapped() {
-        print("right button was tapped")
+        animateOut()
     }
 }
