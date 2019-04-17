@@ -79,7 +79,7 @@ class AlertView: UIView {
         
         clipsToBounds = true
         setupImageBackground()
-        setupTitles()
+        setupLabels()
         setupButtons()
     }
     
@@ -92,7 +92,8 @@ class AlertView: UIView {
         imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
     }
     
-    func setupTitles() {
+    // MARK: - manage Labels
+    func setupLabels() {
         imageView.addSubview(titleLabel)
         imageView.addSubview(bodyLabel)
         
@@ -104,6 +105,7 @@ class AlertView: UIView {
         bodyLabel.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -16).isActive = true
     }
     
+    // MARK: - manage Buttons
     func setupButtons() {
         imageView.addSubview(rightButton)
         imageView.addSubview(leftButton)

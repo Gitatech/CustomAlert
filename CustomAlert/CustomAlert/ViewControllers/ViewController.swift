@@ -45,7 +45,7 @@ class ViewController: UIViewController {
         self.setupVisualEffectView()
     }
     
-    // MARK: - setup VisualEffectView
+    // MARK: - manage VisualEffectView
     func setupVisualEffectView() {
         view.addSubview(visualEffect)
         visualEffect.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
@@ -86,7 +86,7 @@ class ViewController: UIViewController {
         backgroundView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant:47).isActive = true
     }
     
-    // MARK: - manage custom alert
+    // MARK: - manage CustomAlert
     @objc func buttonPressed() {
         print("Button was pressed")
         self.callAlert(title: "Hello", body: "World!", leftButton: "Okey", rightButton: "No")
